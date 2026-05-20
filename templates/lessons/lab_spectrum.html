@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="lab-page" data-lab="spectrum">
+    <header class="lab-heading">
+        <a class="crumb" href="{% url 'lab_home' %}">Physics Lab</a>
+        <h1>Spectrum Mixer</h1>
+        <p>Mix red, green, and blue light to create additive color blends.</p>
+    </header>
+    <div class="lab-shell">
+        <div class="spectrum-stage">
+            <div class="spectrum-orb" id="spectrumOrb"></div>
+            <p id="spectrumReadout">rgb(120, 180, 255)</p>
+        </div>
+        <aside class="lab-controls">
+            <label>Red <input id="redMix" type="range" min="0" max="255" value="120"></label>
+            <label>Green <input id="greenMix" type="range" min="0" max="255" value="180"></label>
+            <label>Blue <input id="blueMix" type="range" min="0" max="255" value="255"></label>
+        </aside>
+    </div>
+</section>
+{% endblock %}

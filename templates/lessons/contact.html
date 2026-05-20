@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-hero compact">
+    <p class="eyebrow">Contact</p>
+    <h1>Send a note to ZoPhysicist.</h1>
+    <p>Questions, lesson ideas, corrections, and collaborations are welcome.</p>
+</section>
+
+<section class="contact-layout">
+    <form class="contact-form reveal" method="post">
+        {% csrf_token %}
+        {% if sent %}
+            <div class="success-message">Message received. This demo stores no email, but the form flow is ready for integration.</div>
+        {% endif %}
+        <label>Name<input name="name" required placeholder="Your name"></label>
+        <label>Email<input name="email" type="email" required placeholder="you@example.com"></label>
+        <label>Message<textarea name="message" rows="7" required placeholder="What should we explore?"></textarea></label>
+        <button class="btn primary" type="submit">Send message</button>
+    </form>
+    <aside class="contact-card reveal">
+        <h2>Reach us</h2>
+        <p>Email: hello@zophysicist.com</p>
+        <p>Social: X, YouTube, LinkedIn</p>
+        <p>Response window: usually within two study sessions.</p>
+    </aside>
+</section>
+{% endblock %}

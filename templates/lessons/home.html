@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-bg" aria-hidden="true">
+        <span class="mesh mesh-one"></span>
+        <span class="mesh mesh-two"></span>
+        <span class="particle p1"></span>
+        <span class="particle p2"></span>
+        <span class="particle p3"></span>
+    </div>
+    <div class="hero-content reveal">
+        <p class="eyebrow">Futuristic physics learning</p>
+        <h1>Tunlai takin Science leh Technology lam thiam ang aw!</h1>
+        <p class="hero-copy">He website hmang hian concept te,article te leh question i chhiarin,i practice thei ang.</p>
+        <div class="hero-actions">
+            <a href="{% url 'search' %}" class="btn primary">Thiam ila</a>
+            <a href="#featured" class="btn ghost">Zirlai</a>
+        </div>
+    </div>
+    <div class="hero-panel reveal">
+        <div class="formula-card">
+            <span>Quantum snapshot</span>
+            <strong>E = hν</strong>
+            <p>Energy arrives in discrete packets. Tiny equation, enormous universe.</p>
+        </div>
+        <div class="orbit-stage" aria-hidden="true"><span></span><span></span><span></span></div>
+    </div>
+</section>
+
+<section class="section" id="featured">
+    <div class="section-heading">
+        <p class="eyebrow">Zirlaite</p>
+        <h2>Chhiar la,chhinchhiah la,ti chhin la,thiam rawh.</h2>
+    </div>
+    <div class="lesson-grid featured-grid">
+        {% for lesson in featured_lessons %}
+            {% include "lessons/components/lesson_card.html" %}
+        {% empty %}
+            <p class="empty-state">Run the sample data command to populate featured lessons.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section split-band">
+    <div>
+        <p class="eyebrow">Popular categories</p>
+        <h2>Move between scales, forces, fields, and stars.</h2>
+    </div>
+    <div class="category-grid">
+        {% for category in categories %}
+            <a class="category-chip reveal" href="{{ category.get_absolute_url }}" style="--accent: {{ category.accent_color }}">
+                <span>{{ category.name }}</span>
+                <small>{{ category.lessons.count }} lessons</small>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Latest lessons</p>
+        <h2>Fresh explanations for focused study sessions.</h2>
+    </div>
+    <div class="lesson-grid">
+        {% for lesson in latest_lessons %}
+            {% include "lessons/components/lesson_card.html" %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section topics-band">
+    <div>
+        <p class="eyebrow">Thupui langsarzualte</p>
+        <h2>I zirlai pui te zir ho hi han bih ve teh.</h2>
+    </div>
+    <div class="topic-cloud">
+        {% for topic in trending_topics %}
+            <a href="{% url 'search' %}?q={{ topic|urlencode }}">{{ topic }}</a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section reading-band">
+    <div class="section-heading">
+        <p class="eyebrow">Chhiar chhunzawm</p>
+        <h2>A chhungril luhchhuah la hre rawh.</h2>
+    </div>
+    <div class="compact-list">
+        {% for lesson in continue_lessons %}
+            <a href="{{ lesson.get_absolute_url }}" class="compact-item reveal">
+                <span>{{ lesson.category.name }}</span>
+                <strong>{{ lesson.title }}</strong>
+                <small>{{ lesson.reading_time }} min read</small>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section testimonials">
+    <blockquote class="quote-card reveal">"The important thing is not to stop questioning."<cite>Albert Einstein</cite></blockquote>
+    <div class="testimonial-grid">
+        <article class="mini-card reveal"><strong>Clean reading</strong><p>Long-form lessons stay calm, legible, and distraction-free.</p></article>
+        <article class="mini-card reveal"><strong>Visual intuition</strong><p>Cards, formulas, and diagrams help ideas become memorable.</p></article>
+        <article class="mini-card reveal"><strong>Curated depth</strong><p>Articles connect fundamentals with modern research themes.</p></article>
+    </div>
+</section>
+
+<section class="newsletter">
+    <div>
+        <p class="eyebrow">Newsletter</p>
+        <h2>Get new physics essays in your inbox.</h2>
+    </div>
+    <form class="newsletter-form">
+        <label class="sr-only" for="newsletterEmail">Email address</label>
+        <input id="newsletterEmail" type="email" placeholder="you@example.com" required>
+        <button class="btn primary" type="submit">Subscribe</button>
+    </form>
+</section>
+{% endblock %}

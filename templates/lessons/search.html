@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-hero compact search-hero">
+    <p class="eyebrow">Search archive</p>
+    <h1>Find the physics idea you need.</h1>
+    <form class="search-form" method="get" autocomplete="off">
+        <label class="sr-only" for="siteSearch">Search lessons</label>
+        <input id="siteSearch" name="q" value="{{ query }}" placeholder="Try quantum, inertia, entropy..." data-live-search>
+        <button class="btn primary" type="submit">Search</button>
+        <div class="suggestions" id="suggestions"></div>
+    </form>
+</section>
+
+<section class="section">
+    {% if query %}
+        <div class="section-heading">
+            <p class="eyebrow">Results</p>
+            <h2>{{ results|length }} matches for "{{ query }}".</h2>
+        </div>
+        <div class="lesson-grid">
+            {% for lesson in results %}
+                {% include "lessons/components/lesson_card.html" %}
+            {% empty %}
+                <div class="empty-state">
+                    <strong>No matching lessons yet.</strong>
+                    <p>Try a broader topic like mechanics, energy, optics, or relativity.</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state roomy">
+            <strong>Start with a question.</strong>
+            <p>Search formulas, concepts, categories, or lesson titles.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

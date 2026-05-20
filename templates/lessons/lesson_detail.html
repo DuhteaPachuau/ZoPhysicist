@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="lesson-shell">
+    <header class="lesson-hero">
+        <div>
+            <a class="crumb" href="{{ lesson.category.get_absolute_url }}">{{ lesson.category.name }}</a>
+            <h1>{{ lesson.title }}</h1>
+            <p>{{ lesson.short_description }}</p>
+            <div class="lesson-meta">
+                <span>{{ lesson.publish_date|date:"M d, Y" }}</span>
+                <span>{{ lesson.reading_time }} min read</span>
+                <span>{{ lesson.views|add:1 }} views</span>
+            </div>
+            <div class="tag-row large">
+                {% for tag in lesson.tags.all %}
+                    <a href="{% url 'search' %}?q={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="lesson-cover">
+            {% if lesson.cover_image %}
+                <img src="{{ lesson.cover_image.url }}" alt="{{ lesson.title }}" loading="eager">
+            {% else %}
+                <div class="generated-cover detail"><span>{{ lesson.category.name }}</span></div>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="reader-layout">
+        <aside class="toc" aria-label="Table of contents">
+            <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="tocList">
+                <strong>Contents</strong>
+                <span>⌄</span>
+            </button>
+            <nav id="tocList"></nav>
+            <div class="share-box">
+                <span>Share</span>
+                <button type="button" data-share="x">X</button>
+                <button type="button" data-share="link">Link</button>
+            </div>
+        </aside>
+        <div class="lesson-content" id="lessonContent">
+            {{ lesson.full_content|safe }}
+        </div>
+    </div>
+
+    <nav class="lesson-navigation" aria-label="Lesson navigation">
+        {% if previous_lesson %}
+            <a href="{% url 'lesson_detail' previous_lesson.1 %}"><span>Previous</span><strong>{{ previous_lesson.2 }}</strong></a>
+        {% endif %}
+        {% if next_lesson %}
+            <a href="{% url 'lesson_detail' next_lesson.1 %}"><span>Next</span><strong>{{ next_lesson.2 }}</strong></a>
+        {% endif %}
+    </nav>
+</article>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Related lessons</p>
+        <h2>Keep exploring {{ lesson.category.name }}.</h2>
+    </div>
+    <div class="lesson-grid">
+        {% for lesson in related_lessons %}
+            {% include "lessons/components/lesson_card.html" %}
+        {% empty %}
+            <p class="empty-state">No related lessons yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

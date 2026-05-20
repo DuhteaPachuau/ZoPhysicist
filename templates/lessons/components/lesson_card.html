@@ -1,0 +1,25 @@
+<article class="lesson-card reveal">
+    <a href="{{ lesson.get_absolute_url }}" class="lesson-card-link" aria-label="Read {{ lesson.title }}">
+        <div class="card-cover">
+            {% if lesson.cover_image %}
+                <img src="{{ lesson.cover_image.url }}" alt="{{ lesson.title }}" loading="lazy">
+            {% else %}
+                <div class="generated-cover"><span>{{ lesson.category.name|default:"Physics" }}</span></div>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <div class="card-meta">
+                <span>{{ lesson.category.name|default:"Physics" }}</span>
+                <span>{{ lesson.reading_time }} min read</span>
+            </div>
+            <h3>{{ lesson.title }}</h3>
+            <p>{{ lesson.short_description }}</p>
+            <div class="tag-row">
+                {% for tag in lesson.tags.all|slice:":3" %}
+                    <span>{{ tag.name }}</span>
+                {% endfor %}
+            </div>
+            <span class="read-more">Read more</span>
+        </div>
+    </a>
+</article>

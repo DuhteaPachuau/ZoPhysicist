@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="lab-page" data-lab="pendulum">
+    <header class="lab-heading">
+        <a class="crumb" href="{% url 'lab_home' %}">Physics Lab</a>
+        <h1>Pendulum Lab</h1>
+        <p>Change length, gravity, and release angle to see how oscillation responds.</p>
+    </header>
+    <div class="lab-shell">
+        <canvas class="lab-canvas" id="pendulumCanvas"></canvas>
+        <aside class="lab-controls">
+            <label>Length <input id="pendulumLength" type="range" min="80" max="260" value="170"></label>
+            <label>Gravity <input id="pendulumGravity" type="range" min="2" max="18" value="10"></label>
+            <label>Angle <input id="pendulumAngle" type="range" min="8" max="55" value="28"></label>
+            <button class="btn primary" type="button" id="pendulumReset">Reset swing</button>
+        </aside>
+    </div>
+</section>
+{% endblock %}

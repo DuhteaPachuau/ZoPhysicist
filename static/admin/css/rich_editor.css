@@ -1,0 +1,74 @@
+.zp-editor-shell {
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--body-bg, #fff);
+  max-width: 980px;
+}
+
+.zp-editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color, #d9d9d9);
+  background: var(--darkened-bg, #f8f8f8);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.zp-editor-toolbar button {
+  border: 1px solid var(--border-color, #d9d9d9);
+  border-radius: 6px;
+  background: var(--body-bg, #fff);
+  color: var(--body-fg, #222);
+  cursor: pointer;
+  font: inherit;
+  padding: 6px 9px;
+}
+
+.zp-editor-toolbar button:hover {
+  border-color: #55d7ff;
+}
+
+.zp-editor-area {
+  min-height: 420px;
+  padding: 18px;
+  background: var(--body-bg, #fff);
+  color: var(--body-fg, #222);
+  line-height: 1.7;
+  outline: none;
+}
+
+.zp-editor-area h2,
+.zp-editor-area h3 {
+  line-height: 1.2;
+}
+
+.zp-editor-area .formula {
+  display: block;
+  border: 1px solid #c9eefe;
+  border-radius: 8px;
+  background: #eefaff;
+  color: #0a6a88;
+  font-family: Consolas, monospace;
+  font-size: 1.2rem;
+  padding: 12px;
+  text-align: center;
+}
+
+.zp-editor-area pre {
+  overflow: auto;
+  border-radius: 8px;
+  background: #101827;
+  color: #e7f3ff;
+  padding: 12px;
+}
+
+.zp-editor-help {
+  padding: 8px 10px;
+  border-top: 1px solid var(--border-color, #d9d9d9);
+  color: var(--body-quiet-color, #666);
+  font-size: 12px;
+}

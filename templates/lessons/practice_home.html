@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="practice-hero">
+    <div>
+        <p class="eyebrow">Practice and PYQ</p>
+        <h1>Exam physics, solved with clarity.</h1>
+        <p>Practice JEE Main, JEE Advanced, NEET, and board-style questions with clean answer reveal, formulas, and detailed solutions.</p>
+    </div>
+    <div class="practice-meter" aria-hidden="true">
+        <span>PYQ</span>
+        <strong>4</strong>
+        <small>exam tracks</small>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Choose exam</p>
+        <h2>Start by exam type.</h2>
+    </div>
+    <div class="exam-grid">
+        {% for slug, name, description in exam_cards %}
+            <a class="exam-card reveal" href="{% url 'practice_exam' slug %}">
+                <span>{{ name }}</span>
+                <p>{{ description }}</p>
+                <strong>Open questions</strong>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">Latest practice</p>
+        <h2>Recently added questions.</h2>
+    </div>
+    <div class="question-grid">
+        {% for question in latest_questions %}
+            {% include "lessons/components/question_card.html" %}
+        {% empty %}
+            <div class="empty-state">Run the sample data command or add PYQ questions from admin.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

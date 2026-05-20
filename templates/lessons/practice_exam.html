@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-hero compact">
+    <p class="eyebrow">Practice</p>
+    <h1>{{ exam_name }} PYQ</h1>
+    <p>Filter by chapter, year, difficulty, or search text. Open any problem to reveal the answer and solution.</p>
+</section>
+
+<section class="section practice-section">
+    <form class="practice-filter" method="get">
+        <input name="q" value="{{ query }}" placeholder="Search questions or solutions">
+        <select name="category">
+            <option value="">All chapters</option>
+            {% for category in categories %}
+                <option value="{{ category.slug }}" {% if selected_category == category.slug %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <select name="year">
+            <option value="">All years</option>
+            {% for item in years %}
+                <option value="{{ item }}" {% if selected_year == item|stringformat:"s" %}selected{% endif %}>{{ item }}</option>
+            {% endfor %}
+        </select>
+        <select name="difficulty">
+            <option value="">All difficulty</option>
+            {% for value, label in difficulty_choices %}
+                <option value="{{ value }}" {% if selected_difficulty == value %}selected{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+        <button class="btn primary" type="submit">Filter</button>
+    </form>
+
+    <div class="question-grid">
+        {% for question in page_obj %}
+            {% include "lessons/components/question_card.html" %}
+        {% empty %}
+            <div class="empty-state">No questions match this filter yet.</div>
+        {% endfor %}
+    </div>
+
+    {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="pagination" aria-label="Pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_difficulty %}&difficulty={{ selected_difficulty }}{% endif %}">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_difficulty %}&difficulty={{ selected_difficulty }}{% endif %}">Previous</a>
+        {% endif %}
+        <span class="current">{{ page_obj.number }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_difficulty %}&difficulty={{ selected_difficulty }}{% endif %}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query|urlencode }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}{% if selected_difficulty %}&difficulty={{ selected_difficulty }}{% endif %}">Last</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</section>
+{% endblock %}

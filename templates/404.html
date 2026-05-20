@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="error-page">
+    <div class="orbital-visual" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="eyebrow">404 anomaly detected</p>
+    <h1>This page slipped out of orbit.</h1>
+    <p>The lesson or resource you are looking for may have moved, changed state, or collapsed into a better URL.</p>
+    <a class="btn primary" href="{% url 'home' %}">Return home</a>
+</section>
+{% endblock %}

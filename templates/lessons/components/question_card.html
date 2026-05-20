@@ -1,0 +1,15 @@
+<article class="question-card reveal">
+    <a href="{{ question.get_absolute_url }}" class="question-card-link">
+        <div class="question-card-top">
+            <span>{{ question.get_exam_display }}</span>
+            <span>{{ question.year }}</span>
+            <span>{{ question.get_difficulty_display }}</span>
+        </div>
+        <h3>{{ question.title }}</h3>
+        <p>{{ question.question|striptags|truncatechars:150 }}</p>
+        <div class="question-card-bottom">
+            <span>{{ question.category.name|default:"Physics" }}</span>
+            <strong>Practice now</strong>
+        </div>
+    </a>
+</article>

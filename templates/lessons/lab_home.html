@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="lab-hero">
+    <p class="eyebrow">Interactive Physics Lab</p>
+    <h1>Refresh your mind with visual experiments.</h1>
+    <p>Open a lightweight sandbox, adjust the controls, and watch physics move in real time across any device.</p>
+</section>
+
+<section class="section">
+    <div class="lab-grid">
+        {% for route, title, description in labs %}
+            <a href="{% url route %}" class="lab-card reveal">
+                <span>Lab</span>
+                <h2>{{ title }}</h2>
+                <p>{{ description }}</p>
+                <strong>Open sandbox</strong>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

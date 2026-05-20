@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="lab-page" data-lab="lens">
+    <header class="lab-heading">
+        <a class="crumb" href="{% url 'lab_home' %}">Physics Lab</a>
+        <h1>Lens Simulator</h1>
+        <p>Move object distance and focal length to visualize image position and magnification.</p>
+    </header>
+    <div class="lab-shell">
+        <canvas class="lab-canvas" id="lensCanvas"></canvas>
+        <aside class="lab-controls">
+            <label>Object distance <input id="lensObject" type="range" min="80" max="320" value="220"></label>
+            <label>Focal length <input id="lensFocal" type="range" min="45" max="160" value="90"></label>
+            <p class="lab-readout" id="lensReadout">Move sliders to simulate.</p>
+        </aside>
+    </div>
+</section>
+{% endblock %}

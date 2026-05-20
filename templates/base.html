@@ -1,0 +1,114 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ meta_title|default:"ZoPhysicist" }}</title>
+    <meta name="description" content="{{ meta_description|default:'Chhiar la,chhinchhiah la,ti chhin la,thiam rawh.' }}">
+    <meta name="theme-color" content="#08111f">
+    <meta property="og:title" content="{{ meta_title|default:'ZoPhysicist' }}">
+    <meta property="og:description" content="{{ meta_description|default:'Tunlai takin Science leh Technology lam thiam ang aw! Chhiar la,chhinchhiah la,ti chhin la,thiam rawh.' }}">
+    <meta property="og:type" content="website">
+{% if og_image %}
+    <meta property="og:image" content="{{ og_image }}">
+{% else %}
+    <meta property="og:image" content="https://res.cloudinary.com/dpsmjarzo/image/upload/v1779290552/ChatGPT_Image_May_20_2026_08_48_00_PM_i1vunf.png">
+{% endif %}
+    <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="progress-bar" id="readingProgress"></div>
+    <div class="page-loader" aria-hidden="true"><span></span></div>
+
+    <header class="site-header" data-nav>
+        <a class="brand" href="{% url 'home' %}" aria-label="ZoPhysicist home">
+            <span class="brand-mark">Z</span>
+            <span>ZoPhysicist</span>
+        </a>
+
+        <div class="nav-actions">
+<button class="theme-toggle theme-toggle-mobile" type="button" aria-label="Toggle dark and light mode">◐</button>            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+        <nav id="siteNav" class="site-nav" aria-label="Main navigation">
+            <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+            <a href="{% url 'search' %}" class="{% if request.resolver_match.url_name == 'search' %}active{% endif %}">Zawnna</a>
+            <a href="{% url 'practice_home' %}" class="{% if 'practice' in request.resolver_match.url_name %}active{% endif %}">Practice</a>
+            <a href="{% url 'lab_home' %}" class="{% if 'lab' in request.resolver_match.url_name %}active{% endif %}">Lab</a>
+            <a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">Keimahni</a>
+            <a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Biakpawh</a>
+            <div class="mobile-nav-group">
+                <button class="mobile-nav-parent" type="button" aria-expanded="false">
+                    Categories
+                    <span>v</span>
+                </button>
+                <div class="mobile-nav-panel">
+                    {% for category in nav_categories %}
+                        <div class="mobile-category">
+                            <button class="mobile-category-toggle" type="button" aria-expanded="false">
+                                {{ category.name }}
+                                <span>v</span>
+                            </button>
+                            <div class="mobile-post-panel">
+                                <a href="{{ category.get_absolute_url }}">All {{ category.name }}</a>
+                                {% for lesson in category.lessons.all|slice:":4" %}
+                                    {% if lesson.is_published %}
+                                        <a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a>
+                                    {% endif %}
+                                {% empty %}
+                                    <span>No lessons yet</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+<button class="theme-toggle theme-toggle-desktop" type="button" aria-label="Toggle dark and light mode">◐</button>        </nav>
+    </header>
+
+    <main id="mainContent">
+        {% block content %}{% endblock %}
+    </main>
+
+<button class="scroll-top" type="button" aria-label="Scroll to top">&uarr;</button>
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <section>
+                <a class="brand" href="{% url 'home' %}"><span class="brand-mark">Z</span><span>ZoPhysicist</span></a>
+                <p>Physics lessons, scientific articles, and visual explanations designed for focused modern learning.</p>
+            </section>
+            <section>
+                <h2>Explore</h2>
+                <a href="{% url 'search' %}">Search lessons</a>
+                <a href="{% url 'practice_home' %}">Practice PYQ</a>
+                <a href="{% url 'lab_home' %}">Physics Lab</a>
+                <a href="{% url 'about' %}">Mission</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </section>
+            <section>
+                <h2>Categories</h2>
+                {% for category in nav_categories %}
+                    <a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                {% empty %}
+                    <span>Seed lessons to see categories.</span>
+                {% endfor %}
+            </section>
+            <section>
+                <h2>Social</h2>
+                <a href="#" aria-label="ZoPhysicist on X">X / Twitter</a>
+                <a href="#" aria-label="ZoPhysicist on YouTube">YouTube</a>
+                <a href="#" aria-label="ZoPhysicist on LinkedIn">LinkedIn</a>
+            </section>
+        </div>
+        <p class="footer-bottom">&copy; {% now "Y" %} ZoPhysicist. Built for curious minds.</p>
+    </footer>
+    <script src="{% static 'js/main.js' %}" defer></script>
+</body>
+</html>

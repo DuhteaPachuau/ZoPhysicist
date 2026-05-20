@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<article class="practice-detail">
+    <header class="practice-question-header">
+        <a class="crumb" href="{% url 'practice_exam' question.exam %}">{{ question.get_exam_display }}</a>
+        <h1>{{ question.title }}</h1>
+        <div class="lesson-meta">
+            <span>{{ question.year }}</span>
+            <span>{{ question.category.name|default:"Physics" }}</span>
+            <span>{{ question.get_difficulty_display }}</span>
+        </div>
+    </header>
+
+    <section class="question-surface">
+        <div class="question-content">
+            {{ question.question|safe }}
+        </div>
+        <div class="option-grid">
+            <button type="button" class="option-button" data-option="A"><span>A</span>{{ question.option_a }}</button>
+            <button type="button" class="option-button" data-option="B"><span>B</span>{{ question.option_b }}</button>
+            <button type="button" class="option-button" data-option="C"><span>C</span>{{ question.option_c }}</button>
+            <button type="button" class="option-button" data-option="D"><span>D</span>{{ question.option_d }}</button>
+        </div>
+        <button class="btn primary reveal-answer" type="button" data-answer="{{ question.correct_option }}">Show answer</button>
+        <div class="answer-panel" hidden>
+            <strong>Correct answer: {{ question.correct_option }}</strong>
+            {% if question.formula_used %}
+                <p class="formula-callout">{{ question.formula_used }}</p>
+            {% endif %}
+        </div>
+    </section>
+
+    <section class="solution-panel">
+        <h2>Detailed solution</h2>
+        <div class="lesson-content">{{ question.solution|safe }}</div>
+        {% if question.related_lesson %}
+            <a class="related-lesson-link" href="{{ question.related_lesson.get_absolute_url }}">Review lesson: {{ question.related_lesson.title }}</a>
+        {% endif %}
+    </section>
+</article>
+
+<section class="section">
+    <div class="section-heading">
+        <p class="eyebrow">More practice</p>
+        <h2>Related questions.</h2>
+    </div>
+    <div class="question-grid">
+        {% for question in related_questions %}
+            {% include "lessons/components/question_card.html" %}
+        {% empty %}
+            <div class="empty-state">No related questions yet.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
